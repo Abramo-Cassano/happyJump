@@ -1,0 +1,23 @@
+{
+  "name": "dino",
+  "version": "1.0.0",
+  "description": "Jumping Dinosaur make with PixiJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MinhLe2512/ProjectJumpingDinosaur.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MinhLe2512/ProjectJumpingDinosaur/issues"
+  },
+  "homepage": "https://github.com/MinhLe2512/ProjectJumpingDinosaur#readme",
+  "dependencies": {
+    "howler": "^2.2.3"
+  }
+}
