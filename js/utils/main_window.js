@@ -45,7 +45,8 @@ window.onload = function() {
         {
             width: window.innerWidth,
             height: window.innerHeight,
-            backgroundColor: 0x34e5eb
+            backgroundColor: 0x34e5eb,
+            resizeTo: window
         }
     );
     document.body.appendChild(app.view);
@@ -79,16 +80,16 @@ function initialize_Start_Screen (parents)
     // Declare poster
     poster = new PIXI.Sprite.from("images/poster.png");
     poster.anchor.set(0.5);
-    poster.x = window.innerWidth / 2;
-    poster.y = window.innerHeight / 3;
+    poster.x = app.screen.width / 2;
+    poster.y = app.screen.height / 3;
 
     // Declare a start button
     textureButton = PIXI.Texture.from('./images/button.png');
     startButton = new PIXI.Sprite(textureButton);
     startButton.anchor.set(0.5);
     startButton.scale.set(0.75, 0.5);
-    startButton.x = window.innerWidth/2;
-    startButton.y = window.innerHeight/2 + poster.height;
+    startButton.x = app.screen.width/2;
+    startButton.y = app.screen.height/2 + poster.height;
 
     startButton.interactive = true;
     startButton.buttonMode = true;
@@ -98,8 +99,8 @@ function initialize_Start_Screen (parents)
     home_background = new PIXI.Graphics();
     home_background.beginFill(0x34e5eb);
     home_background.drawRect(0,0,
-                        window.innerWidth,
-                        window.innerHeight);
+                        app.screen.width,
+                        app.screen.height);
     home_background.endFill();
 
     home_background.addChild(startButton);
@@ -111,29 +112,29 @@ function initialize_Play_Screen(parents)
 {
     // Declare score
     text = new PIXI.Text('0',{fill: "#fafafa", fontFamily: "Impact", align : 'center', fontSize: 32, strokeThickness: 9});
-    text.x = window.innerWidth / 15;
-    text.y = window.innerHeight/ 15;  
+    text.x = app.screen.width / 15;
+    text.y = app.screen.height/ 15;  
 
     //Highscore Text
     highScoreText = new PIXI.Text('0', {fill: "#fafafa", fontFamily: "Impact", align : 'center', fontSize: 20, strokeThickness: 9});
-    highScoreText.x = window.innerWidth / 15;
-    highScoreText.y = window.innerHeight / 8;
+    highScoreText.x = app.screen.width / 15;
+    highScoreText.y = app.screen.height / 8;
 
     // Game background
     game_background = new PIXI.Graphics();
     game_background.beginFill(0x34e5eb);
     game_background.drawRect(0,0,
-                        window.innerWidth,
-                        window.innerHeight);
+                        app.screen.width,
+                        app.screen.height);
     game_background.endFill();
 
     //Platform
     background = new PIXI.Graphics();
     background.beginFill(0xffffff);
     background.lineStyle(3, 0xcccccc, 1);
-    background.drawRect(0, window.innerHeight / 2,
-                        window.innerWidth,
-                        window.innerHeight);
+    background.drawRect(0, app.screen.height / 2,
+                        app.screen.width,
+                        app.screen.height);
     background.endFill();
     
     parents.addChild(game_background);
@@ -145,8 +146,8 @@ function initialize_Over_Screen(parents)
     // Declare game over notification
     over = new PIXI.Sprite.from("images/gameover.png");
     over.anchor.set(0.5);
-    over.x = window.innerWidth / 2;
-    over.y = window.innerHeight / 4;
+    over.x = app.screen.width / 2;
+    over.y = app.screen.height / 4;
 
     
     // Declare a retry button
@@ -154,8 +155,8 @@ function initialize_Over_Screen(parents)
     reTry = new PIXI.Sprite(textureButton1);
     reTry.anchor.set(0.5);
     reTry.scale.set(0.5, 0.5);
-    reTry.x = window.innerWidth/2;
-    reTry.y = window.innerHeight/3;
+    reTry.x = app.screen.width/2;
+    reTry.y = app.screen.height/3 + over.height;
     
     reTry.interactive = true;
     reTry.buttonMode = true;
@@ -172,8 +173,8 @@ function doneLoading(e) {
     bg03 = createBg(app.loader.resources["03"].texture);
     bg05 = createBg(app.loader.resources["05"].texture);
 
-    let tl = new PIXI.TilingSprite(app.loader.resources["03"].texture, window.innerWidth, window.innerHeight);
-    tl.position.set(0, -window.innerHeight/30);
+    let tl = new PIXI.TilingSprite(app.loader.resources["03"].texture, app.screen.width, app.screen.height);
+    tl.position.set(0, -app.screen.height/30);
     scene2.addChild(tl);
     bg04 = tl;
 
@@ -187,7 +188,7 @@ function doneLoading(e) {
 }
 
 function createBg(texture) {
-    let tiling = new PIXI.TilingSprite(texture, window.innerWidth, window.innerHeight);
+    let tiling = new PIXI.TilingSprite(texture, app.screen.width, app.screen.height);
     // let tiling = new PIXI.TilingSprite(texture, 1920, 1080);
 
     tiling.position.set(0, 0);
@@ -366,8 +367,8 @@ function createSpikes() {
     }
     //spike.anchor.set(0.5);
     spike.scale.set(0.2, 0.2);
-    spike.x = window.innerWidth;
-    spike.y = window.innerHeight / 2;
+    spike.x = app.screen.width;
+    spike.y = app.screen.height / 2;
     spike.speed = spikeSpeed;
 
     // scene2.addChild(spike);
@@ -409,21 +410,10 @@ function rectIntersects(a, b) {
 }
 
 window.onresize = function(){
-    app.renderer.resize(window.innerWidth, window.innerHeight);
-    // player.x = app.view.width / 2;
-    // player.y = window.innerHeight / 4;
-
-    reTry.x = window.innerWidth/2;
-    reTry.y = window.innerHeight/3;
-
-    poster.x = window.innerWidth / 2;
-    poster.y = window.innerHeight / 3;
-
-    highScoreText.x = window.innerWidth / 10;
-    highScoreText.y = window.innerHeight / 10;
-
-    startButton.x = window.innerWidth/2;
-    startButton.y = window.innerHeight/3;
+    const parent = app.view.parentNode;
+   
+	// Resize the renderer
+	app.renderer.resize(parent.clientWidth, parent.clientHeight);
 };
 
 // Calling needed functions
